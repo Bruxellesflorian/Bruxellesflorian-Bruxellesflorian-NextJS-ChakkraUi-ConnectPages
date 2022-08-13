@@ -17,15 +17,13 @@ const Connection = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
 
-  const [password, set_password] = useState('')
-  const [email, set_email] = useState('')
+  const [user, setUser] = useState({ email: '', password: '' })
 
   const handleSubmit = async () => {
-    console.log('test')
+    console.log(user);
     setIsLoading(true)
-    console.log(isLoading);
     try {
-      await userLogin({ email, password })
+      await userLogin(user.email, user.password)
       // setIsLoading(false)
     } catch (error) {
       setError('Invalid username or password')
@@ -35,12 +33,8 @@ const Connection = () => {
     }
   }
 
-  const handleEmail = (email) => {
-    set_email(email)
-  }
-
-  const handlePassword = (password1) => {
-    // set_password(password1)
+  const handleChange = (e) => {
+    setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
   return (
@@ -48,19 +42,21 @@ const Connection = () => {
       <FormControl isRequired mt={6}>
         <FormLabel>Email</FormLabel>
         <Input
+          name="email"
           type="email"
           placeholder="test@test.com"
-          onChange={(event) => handleEmail(event.currentTarget.value)}
+          onChange={handleChange}
         />
       </FormControl>
       <FormControl isRequired mt={6}>
         <FormLabel>Password</FormLabel>
         <InputGroup>
           <Input
+            name="password"
             type={showPassword ? 'text' : 'password'}
             placeholder="*******"
             size="lg"
-            onChange={(event) => handlePassword(event.currentTarget.value)}
+            onChange={handleChange}
           />
           <InputRightElement width="3rem">
             <Button h="1.5rem" size="sm" onClick={handlePasswordVisibility}>
