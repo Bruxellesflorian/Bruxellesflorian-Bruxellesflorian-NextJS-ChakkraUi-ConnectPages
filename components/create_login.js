@@ -22,25 +22,26 @@ const Create_login = () => {
     mdp2: '',
   })
 
-  const isError_email = user.email === ''
-  const isError_password = user.mdp1 === ''
-
+  const [colorControl, setcolorControl] = useState({
+    colorEmail: '',
+    colorMdp1: '',
+    colorMdp2: '',
+  })
+  
   const [validForm, setValidForm] = useState({
     emailOk: false,
     passwordOk: false,
   })
+  
+  
+  const isError_email = user.email === ''
+  const isError_password = user.mdp1 === ''
 
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
 
   const handlePasswordVisibility = () => setShowPassword(!showPassword)
   const [showPassword, setShowPassword] = useState(false)
-
-  const [colorControl, setcolorControl] = useState({
-    colorEmail: '',
-    colorMdp1: '',
-    colorMdp2: '',
-  })
 
   const handleChange = (e) => {
     setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }))
